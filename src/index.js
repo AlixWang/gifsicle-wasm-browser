@@ -24,7 +24,9 @@ let gifsicle = {
 			return " \n Check: https://github.com/renzhezhilu/gifsicle-wasm-browser";
 		},
 		testType(data) {
-			return data instanceof Element
+			const isElement =
+				typeof Element !== "undefined" && data instanceof Element;
+			return isElement
 				? "element"
 				: Object.prototype.toString
 					.call(data)

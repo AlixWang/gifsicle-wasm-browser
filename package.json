@@ -1,6 +1,6 @@
 {
-  "name": "gifsicle-wasm-browser",
-  "version": "1.5.17",
+  "name": "@fe-daily/gifsicle-wasm-browser",
+  "version": "1.5.18",
   "description": "Run Gifsicle in browser，Compress, rotate, crop and other operations on Gif images",
   "homepage": "https://github.com/renzhezhilu/gifsicle-wasm-browser",
   "author": {
@@ -37,7 +37,9 @@
     "README.md",
     "LICENSE"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "rollup": "^4.53.3"
+  },
   "devDependencies": {
     "uglify-js": "^3.16.1"
   }
