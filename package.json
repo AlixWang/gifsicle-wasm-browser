@@ -1,6 +1,6 @@
 {
   "name": "@fe-daily/gifsicle-wasm-browser",
-  "version": "1.5.18",
+  "version": "1.5.19",
   "description": "Run Gifsicle in browser，Compress, rotate, crop and other operations on Gif images",
   "homepage": "https://github.com/renzhezhilu/gifsicle-wasm-browser",
   "author": {
@@ -20,6 +20,7 @@
     "extract gif frame"
   ],
   "main": "./dist/gifsicle.min.js",
+  "types": "./index.d.ts",
   "scripts": {
     "start": "node ./gifsicle.min.js"
   },
@@ -32,6 +33,7 @@
     "node": "*"
   },
   "files": [
+    "index.d.ts",
     "dist/gifsicle.min.js",
     "package.json",
     "README.md",
