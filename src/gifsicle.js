@@ -1,3 +1,21 @@
+import { WASM_BASE64 } from "./wasm-b64";
+
+const wasmBinaryCache = (() => {
+    if (typeof WASM_BASE64 === "string" && WASM_BASE64.length > 0) {
+        if (typeof atob === "function") {
+            const bin = atob(WASM_BASE64);
+            const arr = new Uint8Array(bin.length);
+            for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+            return arr;
+        }
+        if (typeof Buffer !== "undefined") {
+            const buf = Buffer.from(WASM_BASE64, "base64");
+            return buf instanceof Uint8Array ? buf : new Uint8Array(buf);
+        }
+    }
+    return null;
+})();
+
 var gifsicle = (function () {
     let wasmUrl = "gifsicle.wasm";
     let FS_BAK = null;
@@ -199,6 +217,7 @@ var gifsicle = (function () {
             if (Module["quit"]) quit_ = Module["quit"];
             var wasmBinary;
             if (Module["wasmBinary"]) wasmBinary = Module["wasmBinary"];
+            else if (wasmBinaryCache) wasmBinary = wasmBinaryCache;
             var noExitRuntime;
             if (Module["noExitRuntime"]) noExitRuntime = Module["noExitRuntime"];
             if (typeof WebAssembly !== "object") {
@@ -4167,3 +4186,5 @@ var gifsicle = (function () {
 
     return encode;
 })();
+
+export default gifsicle;

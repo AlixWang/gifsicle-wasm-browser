@@ -159,14 +159,35 @@ gifsicle.run({
 });
 ````
 
+## Next.js client usage
+Make sure the call runs on the client (e.g. inside a Client Component or `useEffect`).
+
+```tsx
+"use client";
+import gifsicle from "gifsicle-wasm-browser";
+
+async function compressGif(file: File) {
+  const [output] = await gifsicle.run({
+    input: [{ file, name: "input.gif" }],
+    command: ["-O3 input.gif -o /out/out.gif"],
+    // optional: pass a custom worker path if you copy it to /public
+    // workerUrl: "/gifsicle-worker.js",
+  });
+
+  return output;
+}
+```
+
+- The worker bundle already contains the wasm bytes, so you do not need to copy a separate `.wasm` file. If your bundler cannot resolve `new URL("./worker.js", import.meta.url)`, copy `dist/worker.js` into `public/` and pass `workerUrl`.
+
 ## cdn
 [cdn demo](https://codepen.io/random233/pen/BaYEwvr)
 
 ```html
 <script type="module">
-  import gifsicle from 'https://unpkg.com/gifsicle-wasm-browser/dist/gifsical.min.js'
+  import gifsicle from 'https://unpkg.com/gifsicle-wasm-browser/dist/index.mjs'
   // or
-  import gifsicle from 'https://cdn.jsdelivr.net/npm/gifsicle-wasm-browser/dist/gifsicle.min.js'
+  import gifsicle from 'https://cdn.jsdelivr.net/npm/gifsicle-wasm-browser/dist/index.mjs'
       ...
   })
 </script>
